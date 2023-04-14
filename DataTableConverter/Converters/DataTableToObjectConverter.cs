@@ -6,8 +6,22 @@ using System.Reflection;
 
 namespace DataTableConverter.Converters
 {
+    /// <summary>
+    /// Converts a <see cref="DataTable"/> to a list of objects or a single object of a given type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of object to be created from the DataTable.</typeparam>
     public class DataTableToObjectConverter<T> where T : new()
     {
+        /// <summary>
+        /// Creates a new instance of the DataTableToObjectConverter class.
+        /// </summary>
+        public DataTableToObjectConverter() { }
+
+        /// <summary>
+        /// Converts a single DataRow to an instance of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="row">The <see cref="DataRow"/> to be converted.</param>
+        /// <returns>The converted instance of type <typeparamref name="T"/>.</returns>
         public T Convert(DataRow row)
         {
             try
@@ -31,11 +45,16 @@ namespace DataTableConverter.Converters
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="DataTable"/> to a list of objects of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="dataTable">The <see cref="DataTable"/> to be converted.</param>
+        /// <returns>A list of objects of type <typeparamref name="T"/> created from the <see cref="DataTable"/>.</returns>
         public IEnumerable<T> Convert(DataTable dataTable)
         {
             try
             {
-                IList<T> list = new List<T>();
+                ICollection<T> list = new List<T>();
 
                 List<DataColumn> dataColumns = dataTable.GetColumns();
 
