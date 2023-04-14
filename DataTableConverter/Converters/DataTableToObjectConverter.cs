@@ -6,13 +6,8 @@ using System.Reflection;
 
 namespace DataTableConverter.Converters
 {
-    public class DataTableToListConverter<T> where T : new()
+    public class DataTableToObjectConverter<T> where T : new()
     {
-        public DataTableToListConverter()
-        {
-
-        }
-
         public T Convert(DataRow row)
         {
             try
