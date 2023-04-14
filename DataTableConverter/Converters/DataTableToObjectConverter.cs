@@ -1,4 +1,5 @@
-﻿using DataTableConverter.Extensions;
+﻿using DataTableConverter.Exceptions;
+using DataTableConverter.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +14,7 @@ namespace DataTableConverter.Converters
     public class DataTableToObjectConverter<T> where T : new()
     {
         /// <summary>
-        /// Creates a new instance of the DataTableToObjectConverter class.
+        /// Creates a new instance of the <see cref="DataTableToObjectConverter{T}"/> class.
         /// </summary>
         public DataTableToObjectConverter() { }
 
@@ -22,6 +23,7 @@ namespace DataTableConverter.Converters
         /// </summary>
         /// <param name="row">The <see cref="DataRow"/> to be converted.</param>
         /// <returns>The converted instance of type <typeparamref name="T"/>.</returns>
+        /// <exception cref="DataTableConvertException">Thrown when an exception is encountered during the conversion process.</exception>
         public T Convert(DataRow row)
         {
             try
@@ -39,9 +41,9 @@ namespace DataTableConverter.Converters
 
                 return instance;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new DataTableConvertException(e);
             }
         }
 
@@ -50,6 +52,7 @@ namespace DataTableConverter.Converters
         /// </summary>
         /// <param name="dataTable">The <see cref="DataTable"/> to be converted.</param>
         /// <returns>A list of objects of type <typeparamref name="T"/> created from the <see cref="DataTable"/>.</returns>
+        /// /// <exception cref="DataTableConvertException">Thrown when an exception is encountered during the conversion process.</exception>
         public IEnumerable<T> Convert(DataTable dataTable)
         {
             try
@@ -78,9 +81,9 @@ namespace DataTableConverter.Converters
 
                 return list;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new DataTableConvertException(e);
             }
         }
 
