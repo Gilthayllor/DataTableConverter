@@ -14,7 +14,7 @@ namespace DataTableConverter.Converters
     /// </summary>
     public class ObjectToDataTableConverter<T> where T : class
     {
-        private List<PropertyInfo> _properties = null!;
+        private List<PropertyInfo> _properties;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ObjectToDataTableConverter{T}"/> class.
