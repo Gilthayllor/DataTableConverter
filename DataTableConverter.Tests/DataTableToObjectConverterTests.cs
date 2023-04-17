@@ -111,5 +111,41 @@ namespace DataTableConverter.Tests
 
             // Assert - ExpectedException attribute will handle the assertion
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NoMatchingColumnException))]
+        public void Convert_SingleRow_TestNoMatchingColumnIsThrown()
+        {
+            // Arrange
+            var converter = new DataTableToObjectConverter<Person>();
+
+            DataTable dt = new DataTable();
+
+            var row = dt.NewRow();
+
+            dt.Rows.Add(row);
+
+            // Act
+            var person = converter.Convert(row);
+
+            // Assert - ExpectedException attribute will handle the assertion
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NoMatchingColumnException))]
+        public void Convert_DataTable_TestNoMatchingColumnIsThrown()
+        {
+            // Arrange
+            var converter = new DataTableToObjectConverter<Person>();
+
+            DataTable dt = new DataTable();
+
+            var row = dt.NewRow();
+
+            // Act
+            var person = converter.Convert(dt);
+
+            // Assert - ExpectedException attribute will handle the assertion
+        }
     }
 }
