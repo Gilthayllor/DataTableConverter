@@ -15,10 +15,5 @@ namespace DataTableConverter.Extensions
         {
             return dataTable.Columns.OfType<DataColumn>().ToList();
         }
-
-        internal static List<DataColumn> GetColumns(this DataRow row)
-        {
-            return row.Table.Columns.OfType<DataColumn>().ToList();
-        }
     }
 }
