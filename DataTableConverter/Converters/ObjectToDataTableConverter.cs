@@ -12,10 +12,8 @@ namespace DataTableConverter.Converters
     /// <summary>
     /// Converts an object of type <typeparamref name="T"/> into a <see cref="DataTable"/>, matching its properties to columns in a <see cref="DataTable"/>.
     /// </summary>
-    public class ObjectToDataTableConverter<T> where T : class
+    public class ObjectToDataTableConverter<T> : BaseConverter<T> where T : class
     {
-        private List<PropertyInfo> _properties;
-
         /// <summary>
         /// Creates a new instance of the <see cref="ObjectToDataTableConverter{T}"/> class.
         /// </summary>
@@ -44,19 +42,14 @@ namespace DataTableConverter.Converters
             {
                 IEnumerable<DataColumn> columns = MatchColumnsDataTable(dataTable);
 
-                if (columns.Any())
+                DataRow dataRow = dataTable.NewRow();
+
+                foreach (DataColumn column in columns)
                 {
-                    DataRow dataRow = dataTable.NewRow();
-
-                    foreach (DataColumn column in columns)
-                    {
-                        SetPropertyDataTable(dataRow, column, item);
-                    }
-
-                    return dataRow;
+                    SetPropertyDataTable(dataRow, column, item);
                 }
-                else
-                    throw new NoMatchingColumnException($"Could not find any matching columns in the provided DataTable for type {typeof(T).Name}. Please make sure the DataTable has the necessary columns to match the properties of {typeof(T).Name}.");
+
+                return dataRow;
             }
             catch (NoMatchingColumnException)
             {
@@ -122,34 +115,6 @@ namespace DataTableConverter.Converters
             }
 
             return dt;
-        }
-
-        private IEnumerable<DataColumn> MatchColumnsDataTable(DataTable dt)
-        {
-            IEnumerable<PropertyInfo> properties = GetPropertiesForDataTable();
-            _properties = new List<PropertyInfo>();
-
-            ICollection<DataColumn> columns = new List<DataColumn>();
-
-            foreach (PropertyInfo property in properties)
-            {
-                string columnName = property.GetColumnName();
-
-                DataColumn column = dt.Columns.OfType<DataColumn>().FirstOrDefault(x => x.ColumnName == columnName);
-
-                if (column != null)
-                {
-                    columns.Add(column);
-                    _properties.Add(property);
-                }
-            }
-
-            return columns;
-        }
-
-        private IEnumerable<PropertyInfo> GetPropertiesForDataTable()
-        {
-            return typeof(T).GetProperties().Where(x => x.GetCustomAttribute<ExcludeFromDataTableAttribute>() == null);
         }
 
         private void SetPropertyDataTable(DataRow dataRow, DataColumn column, T item)
