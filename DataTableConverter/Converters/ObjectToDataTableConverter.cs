@@ -58,6 +58,10 @@ namespace DataTableConverter.Converters
                 else
                     throw new NoMatchingColumnException($"Could not find any matching columns in the provided DataTable for type {typeof(T).Name}. Please make sure the DataTable has the necessary columns to match the properties of {typeof(T).Name}.");
             }
+            catch (NoMatchingColumnException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new DataTableConvertException(e);
