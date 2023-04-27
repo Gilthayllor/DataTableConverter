@@ -74,7 +74,7 @@ List<MyModel> list = dataTableToObjectConverter.Convert(table);
 
 // or convert a single row
 
-MyModel model = dataTableToObjectConverter.Convert(table.Rows[0])
+MyModel model = dataTableToObjectConverter.Convert(table.Rows[0]);
 ```
 
 ### Convert List to DataTable
