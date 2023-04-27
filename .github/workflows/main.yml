@@ -1,0 +1,30 @@
+name: Build and deploy DataTableConverter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: setup .net standard
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: netstandard2.0
+      
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test
+
+      - name: Pack
+        run: dotnet pack --configuration Release
+
+      - name: Publish
+        run: dotnet nuget push "DataTableConverter/bin/Release/*.nupkg" -k ${{secrets.NUGET_SECRET}} -s https://api.nuget.org/v3/index.json
