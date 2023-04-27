@@ -1,23 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<ApplicationIcon>icon_data_table_converter.ico</ApplicationIcon>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Title>DataTable Converter</Title>
 		<Authors>Gilthayllor Sousa</Authors>
-		<PackageIcon>icon_data_table_converter.png</PackageIcon>
-		<PackageProjectUrl></PackageProjectUrl>
 		<Description>This package converts a DataTable object into a List or a List into a DataTable object.</Description>
+		<PackageDescription>This package converts a DataTable object into a List or a List into a DataTable object.</PackageDescription>
+		<Icon>icon_data_table_converter.png</Icon>
+		<PackageIcon>icon_data_table_converter.png</PackageIcon>
+		<PackageTags>DataTable;Converter</PackageTags>
+		<PackageProjectUrl>https://github.com/Gilthayllor/DataTableConverter</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Gilthayllor/DataTableConverter</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="icon_data_table_converter.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\..\..\..\..\Downloads\icon_data_table_converter.png">
+		<None Include="..\Media\icon_data_table_converter.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
