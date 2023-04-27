@@ -15,7 +15,7 @@ jobs:
       - name: setup .net standard
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: netstandard2.0
+          dotnet-version: 5.0.x
       
       - name: Build
         run: dotnet build --configuration Release
